@@ -1,0 +1,75 @@
+html {
+	height: 100%;
+	display: flex;
+	font-family: verdana;
+	font-size: 11pt;
+}
+
+body {
+	flex-direction: column;
+	display: flex;
+	width: 100%;
+}
+
+label.column {
+	display: flex;
+	flex-direction: column;
+	resize: none;
+	flex: 1;
+}
+
+label.column textarea {
+	flex: 1;
+}
+
+.mid-bar {
+	display: flex;
+	justify-content: space-around;
+}
+
+.mid-bar .left-bar {
+	display: flex;
+	justify-content: flex-start;
+	flex: 1;
+}
+
+.mid-bar .center-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mid-bar .right-bar {
+	display: flex;
+	justify-content: flex-end;
+	flex: 1;
+}
+
+.url-bar > input {
+	margin-right: 0.5em;
+}
+
+.url-bar {
+	margin-bottom: 0.5em;
+}
+
+.status-bar {
+	margin-top: 0.5em;
+}
+
+.status-bar input {
+	text-align: right;
+}
+
+.mid-bar > * > * {
+	margin: 0.5em;
+}
+
+.row {
+	display: flex;
+	width: 100%;
+}
+
+.row > input {
+	flex: 1;
+}

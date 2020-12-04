@@ -1,0 +1,72 @@
+<div class = "url-bar row">
+	<label class = "column">
+		endpoint
+		<div class = "row">
+			<input cv-bind = "urlPath" />
+			<button>GET</button>
+		</div>
+	</label>
+</div>
+
+<label class = "column">
+	input
+	<textarea cv-bind = "input"></textarea>
+</label>
+
+<div class = "mid-bar">
+
+	<div class = "left-bar">
+		<!-- <select cv-bind = "requestType">
+			<option>POST</option>
+			<option>PATCH</option>
+			<option>PUT</option>
+			<option>DELETE</option>
+			<option>OPTIONS</option>
+		</select> -->
+	</div>
+
+	<div class = "center-bar">
+
+		<label>
+			input has headers
+			<input type = "checkbox" cv-bind = "inputHeaders" value = "1" />
+		</label>
+
+		<select cv-bind = "inputType">
+			<option value = "text/plain">text/plain</option>
+			<option value = "text/csv">text/csv</option>
+			<option value = "text/tsv">text/tsv</option>
+			<option value = "text/json">text/json</option>
+			<option value = "text/yaml">text/yaml</option>
+		</select>
+
+		<button cv-on = "click:submitRequest(event)"> → </button>
+
+		<select cv-bind = "outputType">
+			<option value = "text/plain">text/plain</option>
+			<option value = "text/csv">text/csv</option>
+			<option value = "text/tsv">text/tsv</option>
+			<option value = "text/json">text/json</option>
+			<option value = "text/yaml">text/yaml</option>
+		</select>
+
+		<label>
+			<input type = "checkbox" cv-bind = "outputHeaders" value = "1" />
+			output has headers
+		</label>
+	</div>
+
+	<div class = "right-bar">
+		<button cv-on = "click:switch(event)">⇅</button>
+	</div>
+
+</div>
+
+<label class = "column">
+	output
+	<textarea cv-bind = "output" readonly="readonly"></textarea>
+</label>
+
+<div class = "row status-bar">
+	<input cv-bind = "status" readonly="readonly" />
+</div>

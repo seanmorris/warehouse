@@ -1,0 +1,14 @@
+name: Heroki Provision Redis
+
+on:
+  push:
+    - '**'
+
+jobs:
+  provision-redis:
+    name: provision-redis
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: set up heroku cli
+        run:  curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
