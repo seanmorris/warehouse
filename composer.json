@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+    	"php": "^7.0",
         "seanmorris/ids": "dev-master"
     },
     "require-dev": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8526b8e57ee978379854f7c9a9fb3638",
+    "content-hash": "d960c34e47a395fee047bb0116e2df45",
     "packages": [
         {
             "name": "seanmorris/ids",
@@ -73,6 +73,7 @@
                 "ext-mbstring": "*",
                 "ext-tidy": "*"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "classmap": [
@@ -129,6 +130,10 @@
                 "testing",
                 "unit-test"
             ],
+            "support": {
+                "issues": "https://github.com/simpletest/simpletest/issues",
+                "source": "https://github.com/simpletest/simpletest/tree/master"
+            },
             "time": "2020-09-24T11:38:31+00:00"
         }
     ],
@@ -140,7 +145,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^7.0"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
 }
