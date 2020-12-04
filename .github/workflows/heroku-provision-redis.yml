@@ -16,14 +16,14 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-      - name: intialize app
-        run:  heroku apps:info -a=${HEROKU_USER_NAME}-${{ secrets.HEROKU_APP_NAME }} | heroku create -a=${HEROKU_USER_NAME}-${HEROKU_APP_NAME}
+      - name: initialize app
+        run:  heroku apps:info -a=${HEROKU_USER_NAME}-${{ secrets.HEROKU_APP_NAME }} || heroku create -a=${HEROKU_USER_NAME}-${HEROKU_APP_NAME}
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
           HEROKU_USER_NAME: ${{ secrets.HEROKU_USER_NAME }}
 
-      - name: intialize redis
+      - name: initialize redis
         run: heroku addons -a=${HEROKU_USER_NAME}-${HEROKU_APP_NAME} | grep heroku-redis || heroku addons:create heroku-redis:${HEROKU_REDIS_PLAN:-hobby-dev} -a=${HEROKU_USER_NAME}-${HEROKU_APP_NAME}
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
