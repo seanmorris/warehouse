@@ -13,5 +13,11 @@ jobs:
     steps:
       - name: set up heroku cli
         run:  curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
       - name: check addons
         run:  heroku addons
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
