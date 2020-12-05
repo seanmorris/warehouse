@@ -2,7 +2,7 @@
 namespace SeanMorris\Warehouse;
 class HomeRoute implements \SeanMorris\Ids\Routable
 {
-	function index($router)
+	public function _init($router)
 	{
 		$request = $router->request();
 		$method  = $request->method();
@@ -35,10 +35,18 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			header(sprintf('Access-Control-Allow-Origin: %s', 'https://warehouse.seanmorr.is'));
 		}
 
-
 		header('Access-Control-Allow-Credentials: true');
 		header('Access-Control-Allow-Methods: ' . implode(', ', $corsMethods));
 		header('Access-Control-Allow-Headers: ' . implode(', ', $corsHeaders));
+	}
+
+	public function index($router)
+	{
+	}
+
+	public function changeTypes($router)
+	{
+		$request = $router->request();
 
 		$inputFormat  = $request->headers('Content-Type');
 		$outputFormat = 'text/plain';
@@ -68,23 +76,14 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		header('Content-Type: ' . $outputFormat);
 
-		switch($method)
-		{
-			// case 'PATCH':  break;
-			// case 'PUT':    break;
-			// case 'DELETE': break;
-			case 'POST':
+		$request = $router->request();
+		$method  = $request->method();
 
-				$response = new \SeanMorris\Ids\Api\Response($request);
+		$response = new \SeanMorris\Ids\Api\Response($request);
 
-				$response->setContent($request->read());
-				$response->setEncoding($outputFormat);
+		$response->setContent($request->read());
+		$response->setEncoding($outputFormat);
 
-				return $response;
-
-
-			case 'GET':
-		}
-
+		return $response;
 	}
 }

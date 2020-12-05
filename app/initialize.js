@@ -11,55 +11,92 @@ if(location.hostname == 'localhost')
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	const view = View.from(require('./form.html'));
 
-	view.args.status = 'ready.';
+	fetch(Config.get('backend-origin'));
 
-	view.args.bindTo('inputType', v =>
-		view.args.inputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
-	);
-	view.args.bindTo('outputType', v =>
-		view.args.outputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
-	);
+	const routes = {
 
-	view.submitRequest = event => {
+		'': () => {
 
-		view.args.status = 'executing request...';
+			const view = View.from(require('./home.html'));
 
-		fetch(Config.get('backend-origin'), {
-			method:    'POST'
-			, body:    view.args.input
-			, headers: {
-				'Content-Type': view.args.inputType
-				, 'Accept':     view.args.outputType
-				, 'Ids-Output-Headers': view.args.outputHeaders ? 'true' : 'false'
-				, 'Ids-Input-Headers':  view.args.inputHeaders  ? 'true' : 'false'
-			}
-		})
-		.then(response => response.text())
-		.then(response => {
-			view.args.output = response;
+			view.args.links = {
+				home: '/'
+				, 'type changer': 'type-changer'
+				, streams: 'streams'
+			};
+
+			return view;
+		}
+
+		, streams: () => {
+			const view = View.from(require('./streams.html'));
+
+			view.publishMessage = (event) => {
+				const message = {};
+				const channel = 'test';
+			};
+
+			return view;
+		}
+
+		, 'type-changer': () => {
+
+			const view = View.from(require('./form.html'));
+
 			view.args.status = 'ready.';
-		})
+
+			view.args.bindTo('inputType', v =>
+				view.args.inputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
+			);
+			view.args.bindTo('outputType', v =>
+				view.args.outputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
+			);
+
+			view.submitRequest = event => {
+
+				view.args.status = 'executing request...';
+
+				fetch(Config.get('backend-origin') + '/changeTypes', {
+					method:    'POST'
+					, body:    view.args.input
+					, headers: {
+						'Content-Type': view.args.inputType
+						, 'Accept':     view.args.outputType
+						, 'Ids-Output-Headers': view.args.outputHeaders ? 'true' : 'false'
+						, 'Ids-Input-Headers':  view.args.inputHeaders  ? 'true' : 'false'
+					}
+				})
+				.then(response => response.text())
+				.then(response => {
+					view.args.output = response;
+					view.args.status = 'ready.';
+				})
+			};
+
+			view.switch = event => {
+				const outputHeaders = view.args.outputHeaders;
+				const inputHeaders  = view.args.inputHeaders;
+
+				const outputType = view.args.outputType;
+				const inputType  = view.args.inputType;
+
+				view.args.outputType = inputType;
+				view.args.inputType  = outputType;
+
+				view.args.outputHeaders = inputHeaders;
+				view.args.inputHeaders  = outputHeaders;
+
+				[view.args.input, view.args.output] = [view.args.output, view.args.input];
+			};
+
+			return view;
+		}
 	};
 
-	view.switch = event => {
-		const outputHeaders = view.args.outputHeaders;
-		const inputHeaders  = view.args.inputHeaders;
-
-		const outputType = view.args.outputType;
-		const inputType  = view.args.inputType;
-
-		view.args.outputType = inputType;
-		view.args.inputType  = outputType;
-
-		view.args.outputHeaders = inputHeaders;
-		view.args.inputHeaders  = outputHeaders;
-
-		[view.args.input, view.args.output] = [view.args.output, view.args.input];
-	};
+	const view = View.from('[[content]]');
 
 	RuleSet.add('body', view);
 	RuleSet.apply();
-	Router.listen(view);
+	Router.listen(view, routes);
 });
