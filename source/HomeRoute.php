@@ -64,6 +64,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				break;
 		}
 
+		header('ContentType: ' . $outputFormat);
+
 		switch($method)
 		{
 			// case 'PATCH':  break;
