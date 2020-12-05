@@ -12,8 +12,7 @@
     "require": {
     	"php": "^7.4",
     	"ext-mbstring": "*",
-    	"ext-yaml": "*",
-        "seanmorris/ids": "dev-sm-api-tooling"
+    	"seanmorris/ids": "dev-sm-api-tooling"
     },
     "require-dev": {
 		"simpletest/simpletest": "dev-master"

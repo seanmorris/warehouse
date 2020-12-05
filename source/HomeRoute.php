@@ -61,9 +61,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				$outputFormat = 'text/json';
 				break;
 
-			case 'text/yaml':
-				$outputFormat = 'text/yaml';
-				break;
+			// case 'text/yaml':
+			// 	$outputFormat = 'text/yaml';
+			// 	break;
 		}
 
 		header('ContentType: ' . $outputFormat);
