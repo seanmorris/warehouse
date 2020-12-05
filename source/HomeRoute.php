@@ -29,7 +29,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 		else
 		{
-			header(sprintf('Access-Control-Allow-Origin: %s', 'https://warehouse.seanmorr.is/'));
+			header(sprintf('Access-Control-Allow-Origin: %s', 'https://warehouse.seanmorr.is'));
 		}
 
 
