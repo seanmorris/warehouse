@@ -66,7 +66,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			// 	break;
 		}
 
-		header('ContentType: ' . $outputFormat);
+		header('Content-Type: ' . $outputFormat);
 
 		switch($method)
 		{
