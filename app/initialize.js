@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			, headers: {
 				'Content-Type': view.args.inputType
 				, 'Accept':     view.args.outputType
-				, 'ids-output-headers': view.args.outputHeaders ? 'true' : 'false'
-				, 'ids-input-headers':  view.args.inputHeaders  ? 'true' : 'false'
+				, 'Ids-Output-Headers': view.args.outputHeaders ? 'true' : 'false'
+				, 'Ids-Input-Headers':  view.args.inputHeaders  ? 'true' : 'false'
 			}
 		})
 		.then(response => response.text())

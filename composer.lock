@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/seanmorris/ids.git",
-                "reference": "6e10f5c3a8a69fbac65bd38167e30f41d24e2978"
+                "reference": "b555eb37aa78e02f105f7a37166125e9d2c76123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seanmorris/ids/zipball/6e10f5c3a8a69fbac65bd38167e30f41d24e2978",
-                "reference": "6e10f5c3a8a69fbac65bd38167e30f41d24e2978",
+                "url": "https://api.github.com/repos/seanmorris/ids/zipball/b555eb37aa78e02f105f7a37166125e9d2c76123",
+                "reference": "b555eb37aa78e02f105f7a37166125e9d2c76123",
                 "shasum": ""
             },
             "require-dev": {
@@ -46,7 +46,7 @@
                 "issues": "https://github.com/seanmorris/ids/issues",
                 "source": "https://github.com/seanmorris/ids/tree/sm-api-tooling"
             },
-            "time": "2020-12-05T20:53:52+00:00"
+            "time": "2020-12-05T21:35:37+00:00"
         }
     ],
     "packages-dev": [

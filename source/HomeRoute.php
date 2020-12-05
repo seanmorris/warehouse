@@ -20,8 +20,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			, 'Pragma'
 			, 'Referer'
 			, 'Accept'
-			, 'ids-output-headers'
-			, 'ids-input-headers'
+			, 'Ids-Input-Headers'
+			, 'Ids-Output-Headers'
 		];
 
 		$refererHost = substr($request->headers('Referer'), 0, strlen('http://localhost:3333'));
