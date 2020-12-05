@@ -29,7 +29,9 @@ label.column textarea {
 
 .mid-bar .left-bar {
 	display: flex;
-	justify-content: flex-start;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: flex-end;
 	flex: 1;
 }
 
@@ -55,9 +57,6 @@ label.column textarea {
 
 .status-bar {
 	margin-top: 0.5em;
-}
-
-.status-bar input {
 	text-align: right;
 }
 
@@ -73,3 +72,25 @@ label.column textarea {
 .row > input {
 	flex: 1;
 }
+
+.bordered {
+	border: 1px solid #999;
+	padding: 0.5em;
+}
+
+textarea {
+	border-radius: 0px;
+}
+
+div.input-row, textarea.input {
+	margin-top: 0.5em;
+}
+
+textarea.output {
+	margin-bottom: 0.5em;
+}
+
+.wide {
+	flex: 1;
+}
+

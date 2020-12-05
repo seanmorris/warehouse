@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e4c69c2fe95d732afbfefedbcec9ff1",
+    "content-hash": "420d09977b9249682f34ed307b52eb72",
     "packages": [
         {
             "name": "seanmorris/ids",
-            "version": "dev-master",
+            "version": "dev-sm-api-tooling",
             "source": {
                 "type": "git",
                 "url": "https://github.com/seanmorris/ids.git",
-                "reference": "5cc17bbe0eea3eedd799db255f547ba58fea842b"
+                "reference": "6e10f5c3a8a69fbac65bd38167e30f41d24e2978"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seanmorris/ids/zipball/5cc17bbe0eea3eedd799db255f547ba58fea842b",
-                "reference": "5cc17bbe0eea3eedd799db255f547ba58fea842b",
+                "url": "https://api.github.com/repos/seanmorris/ids/zipball/6e10f5c3a8a69fbac65bd38167e30f41d24e2978",
+                "reference": "6e10f5c3a8a69fbac65bd38167e30f41d24e2978",
                 "shasum": ""
             },
             "require-dev": {
@@ -25,7 +25,6 @@
                 "seanmorris/ksqlc": "dev-master",
                 "simpletest/simpletest": "dev-master"
             },
-            "default-branch": true,
             "bin": [
                 "bin/idilic"
             ],
@@ -45,9 +44,9 @@
             ],
             "support": {
                 "issues": "https://github.com/seanmorris/ids/issues",
-                "source": "https://github.com/seanmorris/ids/tree/master"
+                "source": "https://github.com/seanmorris/ids/tree/sm-api-tooling"
             },
-            "time": "2020-12-01T19:00:15+00:00"
+            "time": "2020-12-05T20:53:52+00:00"
         }
     ],
     "packages-dev": [

@@ -1,30 +1,45 @@
 import { Router   } from 'curvature/base/Router';
 import { RuleSet }  from 'curvature/base/RuleSet';
+import { Config }   from 'curvature/base/Config';
 import { View }     from 'curvature/base/View';
+
+Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com/');
+
+if(location.hostname == 'localhost')
+{
+	Config.set('backend-origin', '//localhost:2020');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 	const view = View.from(require('./form.html'));
 
-	view.args.status = 'ready';
+	view.args.status = 'ready.';
+
+	view.args.bindTo('inputType', v =>
+		view.args.inputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
+	);
+	view.args.bindTo('outputType', v =>
+		view.args.outputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
+	);
 
 	view.submitRequest = event => {
 
 		view.args.status = 'executing request...';
 
-		fetch('http://localhost:2020', {
+		fetch(Config.get('backend-origin'), {
 			method:    'POST'
 			, body:    view.args.input
 			, headers: {
 				'Content-Type': view.args.inputType
 				, 'Accept':     view.args.outputType
 				, 'ids-output-headers': view.args.outputHeaders ? 'true' : 'false'
-				, 'ids-input-headers': view.args.inputHeaders ? 'true' : 'false'
+				, 'ids-input-headers':  view.args.inputHeaders  ? 'true' : 'false'
 			}
 		})
 		.then(response => response.text())
 		.then(response => {
 			view.args.output = response;
-			view.args.status = 'ready';
+			view.args.status = 'ready.';
 		})
 	};
 
@@ -46,6 +61,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	RuleSet.add('body', view);
 	RuleSet.apply();
-
 	Router.listen(view);
 });

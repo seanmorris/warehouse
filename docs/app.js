@@ -149,7 +149,7 @@ var __makeRelativeRequire = function(require, mappings, pref) {
   }
 };
 require.register("form.html", function(exports, require, module) {
-module.exports = "<div class = \"url-bar row\">\n\t<label class = \"column\">\n\t\tendpoint\n\t\t<div class = \"row\">\n\t\t\t<input cv-bind = \"urlPath\" />\n\t\t\t<button>GET</button>\n\t\t</div>\n\t</label>\n</div>\n\n<label class = \"column\">\n\tinput\n\t<textarea cv-bind = \"input\"></textarea>\n</label>\n\n<div class = \"mid-bar\">\n\n\t<div class = \"left-bar\">\n\t\t<!-- <select cv-bind = \"requestType\">\n\t\t\t<option>POST</option>\n\t\t\t<option>PATCH</option>\n\t\t\t<option>PUT</option>\n\t\t\t<option>DELETE</option>\n\t\t\t<option>OPTIONS</option>\n\t\t</select> -->\n\t</div>\n\n\t<div class = \"center-bar\">\n\n\t\t<label>\n\t\t\tinput has headers\n\t\t\t<input type = \"checkbox\" cv-bind = \"inputHeaders\" value = \"1\" />\n\t\t</label>\n\n\t\t<select cv-bind = \"inputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<option value = \"text/yaml\">text/yaml</option>\n\t\t</select>\n\n\t\t<button cv-on = \"click:submitRequest(event)\"> → </button>\n\n\t\t<select cv-bind = \"outputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<option value = \"text/yaml\">text/yaml</option>\n\t\t</select>\n\n\t\t<label>\n\t\t\t<input type = \"checkbox\" cv-bind = \"outputHeaders\" value = \"1\" />\n\t\t\toutput has headers\n\t\t</label>\n\t</div>\n\n\t<div class = \"right-bar\">\n\t\t<button cv-on = \"click:switch(event)\">⇅</button>\n\t</div>\n\n</div>\n\n<label class = \"column\">\n\toutput\n\t<textarea cv-bind = \"output\" readonly=\"readonly\"></textarea>\n</label>\n\n<div class = \"row status-bar\">\n\t<input cv-bind = \"status\" readonly=\"readonly\" />\n</div>\n"
+module.exports = "<h1>Content-Type changer.</h1>\n\n<!-- <div class = \"url-bar row\">\n\t<label class = \"bordered column\">\n\t\tendpoint\n\t\t<div class = \"row input-row\">\n\t\t\t<input cv-bind = \"urlPath\" />\n\t\t\t<button>GET</button>\n\t\t</div>\n\t</label>\n</div> -->\n\n<label class = \"bordered column\">\n\tinput\n\t<textarea cv-bind = \"input\" class = \"input\"></textarea>\n</label>\n\n<div class = \"mid-bar\">\n\n\t<div class = \"left-bar\">\n\n\t\t<label cv-if = \"inputCanHaveHeaders\">\n\t\t\tinput has headers\n\t\t\t<input type = \"checkbox\" cv-bind = \"inputHeaders\" value = \"1\" />\n\t\t</label>\n\n\t</div>\n\n\t<div class = \"center-bar\">\n\n\t\t<select cv-bind = \"inputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<option value = \"text/yaml\">text/yaml</option>\n\t\t</select>\n\n\t\t<button cv-on = \"click:submitRequest(event)\"> → </button>\n\n\t\t<select cv-bind = \"outputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<option value = \"text/yaml\">text/yaml</option>\n\t\t</select>\n\n\t</div>\n\n\t<div class = \"right-bar\">\n\t\t<label class = \"wide\" cv-if = \"outputCanHaveHeaders\">\n\t\t\t<input type = \"checkbox\" cv-bind = \"outputHeaders\" value = \"1\" />\n\t\t\toutput has headers\n\t\t</label>\n\t\t<button cv-on = \"click:switch(event)\">⇅</button>\n\t</div>\n\n</div>\n\n<label class = \"bordered column\">\n\t<textarea cv-bind = \"output\" class = \"output\" readonly=\"readonly\"></textarea>\n\toutput\n</label>\n\n<div class = \"bordered status-bar\">\n\t[[status]]\n</div>\n"
 });
 
 ;require.register("initialize.js", function(exports, require, module) {
@@ -159,16 +159,30 @@ var _Router = require("curvature/base/Router");
 
 var _RuleSet = require("curvature/base/RuleSet");
 
+var _Config = require("curvature/base/Config");
+
 var _View = require("curvature/base/View");
+
+_Config.Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com/');
+
+if (location.hostname == 'localhost') {
+  _Config.Config.set('backend-origin', '//localhost:2020');
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   var view = _View.View.from(require('./form.html'));
 
-  view.args.status = 'ready';
+  view.args.status = 'ready.';
+  view.args.bindTo('inputType', function (v) {
+    return view.args.inputCanHaveHeaders = v && v.substr(-2, 2) === 'sv';
+  });
+  view.args.bindTo('outputType', function (v) {
+    return view.args.outputCanHaveHeaders = v && v.substr(-2, 2) === 'sv';
+  });
 
   view.submitRequest = function (event) {
     view.args.status = 'executing request...';
-    fetch('http://localhost:2020', {
+    fetch(_Config.Config.get('backend-origin'), {
       method: 'POST',
       body: view.args.input,
       headers: {
@@ -181,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.text();
     }).then(function (response) {
       view.args.output = response;
-      view.args.status = 'ready';
+      view.args.status = 'ready.';
     });
   };
 

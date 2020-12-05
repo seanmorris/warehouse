@@ -1,36 +1,32 @@
-<div class = "url-bar row">
-	<label class = "column">
+<h1>Content-Type changer.</h1>
+
+<!-- <div class = "url-bar row">
+	<label class = "bordered column">
 		endpoint
-		<div class = "row">
+		<div class = "row input-row">
 			<input cv-bind = "urlPath" />
 			<button>GET</button>
 		</div>
 	</label>
-</div>
+</div> -->
 
-<label class = "column">
+<label class = "bordered column">
 	input
-	<textarea cv-bind = "input"></textarea>
+	<textarea cv-bind = "input" class = "input"></textarea>
 </label>
 
 <div class = "mid-bar">
 
 	<div class = "left-bar">
-		<!-- <select cv-bind = "requestType">
-			<option>POST</option>
-			<option>PATCH</option>
-			<option>PUT</option>
-			<option>DELETE</option>
-			<option>OPTIONS</option>
-		</select> -->
-	</div>
 
-	<div class = "center-bar">
-
-		<label>
+		<label cv-if = "inputCanHaveHeaders">
 			input has headers
 			<input type = "checkbox" cv-bind = "inputHeaders" value = "1" />
 		</label>
+
+	</div>
+
+	<div class = "center-bar">
 
 		<select cv-bind = "inputType">
 			<option value = "text/plain">text/plain</option>
@@ -50,23 +46,23 @@
 			<option value = "text/yaml">text/yaml</option>
 		</select>
 
-		<label>
-			<input type = "checkbox" cv-bind = "outputHeaders" value = "1" />
-			output has headers
-		</label>
 	</div>
 
 	<div class = "right-bar">
+		<label class = "wide" cv-if = "outputCanHaveHeaders">
+			<input type = "checkbox" cv-bind = "outputHeaders" value = "1" />
+			output has headers
+		</label>
 		<button cv-on = "click:switch(event)">⇅</button>
 	</div>
 
 </div>
 
-<label class = "column">
+<label class = "bordered column">
+	<textarea cv-bind = "output" class = "output" readonly="readonly"></textarea>
 	output
-	<textarea cv-bind = "output" readonly="readonly"></textarea>
 </label>
 
-<div class = "row status-bar">
-	<input cv-bind = "status" readonly="readonly" />
+<div class = "bordered status-bar">
+	[[status]]
 </div>
