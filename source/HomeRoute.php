@@ -7,6 +7,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$request = $router->request();
 		$method  = $request->method();
 
+		\SeanMorris\Ids\Log::error($this->request->headers());
+
 		$corsMethods = ['GET','POST','HEAD','OPTIONS'];
 
 		$corsHeaders = [
