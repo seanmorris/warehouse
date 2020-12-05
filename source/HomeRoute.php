@@ -17,6 +17,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			, 'Last-Event-Id'
 			, 'Pragma'
 			, 'Referer'
+			, 'Accept'
 			, 'ids-output-headers'
 			, 'ids-input-headers'
 		];
