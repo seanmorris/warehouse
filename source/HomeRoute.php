@@ -38,6 +38,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		header('Access-Control-Allow-Headers: ' . implode(', ', $corsHeaders));
 
 		$inputFormat  = $request->headers('Content-Type');
+		$outputFormat = 'text/plain';
 
 		switch($request->headers('Accept'))
 		{
