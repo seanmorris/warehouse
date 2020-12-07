@@ -29,6 +29,12 @@ services:
       file: base.yml
       service: database
 
+  redis:
+    ports: ['6379:6379']
+    extends:
+      file: base.yml
+      service: redis
+
 volumes:
   schema:
     driver: local

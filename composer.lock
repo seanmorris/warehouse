@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "420d09977b9249682f34ed307b52eb72",
+    "content-hash": "4ef757143896dd1d15ed326ba5c71ec0",
     "packages": [
         {
             "name": "seanmorris/ids",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/seanmorris/ids.git",
-                "reference": "b555eb37aa78e02f105f7a37166125e9d2c76123"
+                "reference": "43ceb84fe3d54d15749ecde579218724cd25dec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seanmorris/ids/zipball/b555eb37aa78e02f105f7a37166125e9d2c76123",
-                "reference": "b555eb37aa78e02f105f7a37166125e9d2c76123",
+                "url": "https://api.github.com/repos/seanmorris/ids/zipball/43ceb84fe3d54d15749ecde579218724cd25dec4",
+                "reference": "43ceb84fe3d54d15749ecde579218724cd25dec4",
                 "shasum": ""
             },
             "require-dev": {
@@ -46,7 +46,7 @@
                 "issues": "https://github.com/seanmorris/ids/issues",
                 "source": "https://github.com/seanmorris/ids/tree/sm-api-tooling"
             },
-            "time": "2020-12-05T21:35:37+00:00"
+            "time": "2020-12-06T02:24:40+00:00"
         }
     ],
     "packages-dev": [
@@ -146,7 +146,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-redis": "*",
+        "ext-uuid": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

@@ -1,20 +1,22 @@
 {
-    "name": "seanmorris/warehouse",
-    "description": "Project template for Ids projects.",
-    "type": "project",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Sean Morris",
-            "email": "sean@seanmorr.is"
-        }
-    ],
-    "require": {
-    	"php": "^7.4",
-    	"ext-mbstring": "*",
-    	"seanmorris/ids": "dev-sm-api-tooling"
-    },
-    "require-dev": {
+	"name": "seanmorris/warehouse",
+	"description": "Project template for Ids projects.",
+	"type": "project",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "Sean Morris",
+			"email": "sean@seanmorr.is"
+		}
+	],
+	"require": {
+		"php": "^7.4",
+		"ext-mbstring": "*",
+		"ext-redis": "*",
+		"ext-uuid": "*",
+		"seanmorris/ids": "dev-sm-api-tooling"
+	},
+	"require-dev": {
 		"simpletest/simpletest": "dev-master"
 	}
 	, "autoload": {

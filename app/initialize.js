@@ -1,6 +1,7 @@
 import { Router   } from 'curvature/base/Router';
 import { RuleSet }  from 'curvature/base/RuleSet';
 import { Config }   from 'curvature/base/Config';
+import { Model }    from 'curvature/model/Model';
 import { View }     from 'curvature/base/View';
 
 Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com/');
@@ -29,13 +30,68 @@ document.addEventListener('DOMContentLoaded', () => {
 			return view;
 		}
 
-		, streams: () => {
+		, 'streams': ({streamName}) => {
+
+			const view = View.from(require('./stream-index.html'));
+
+			view.args.streams = [];
+
+			const url = Config.get('backend-origin') + '/activeStreams';
+			const options = {headers: {Accept: 'text/json'}};
+
+			fetch(url, options).then(response => response.json()).then(streams => {
+				view.args.streams = streams;
+			});
+
+			return view;
+		}
+
+		, 'streams/%streamName': ({streamName}) => {
 			const view = View.from(require('./streams.html'));
 
+			view.args.eventLog = [];
+
+			view.args.streamName = streamName;
+
+			const onServerEvent = event => view.args.eventLog.unshift({
+				class:  'ServerEvent'
+				, data: JSON.parse(event.data)
+				, id:   event.lastEventId
+			});
+
+			const url = Config.get('backend-origin') + '/subscribe/' + streamName;
+
+			const eventSource = new EventSource(url, {
+				withCredentials: true
+				, retry:         500
+			});
+
+			eventSource.addEventListener('ServerEvent', onServerEvent);
+
+			view.onRemove(()=>{
+				eventSource.removeEventListener('happened', onServerEvent);
+			});
+
+			view.args.bindTo('inputType', v =>
+				view.args.inputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
+			);
+
 			view.publishMessage = (event) => {
-				const message = {};
-				const channel = 'test';
+				fetch(Config.get('backend-origin') + '/publish/' + streamName, {
+					credentials: 'include'
+					, method:    'POST'
+					, body:      view.args.input ?? String.fromCharCode(0x0)
+					, headers: {
+						'Content-Type': view.args.inputType
+						, 'Ids-Input-Headers':  view.args.inputHeaders  ? 'true' : 'false'
+					}
+				}).then(response => response.text()).then(response => {
+					view.args.output = response;
+					view.args.status = 'ready.';
+				});
 			};
+
+			view.toJson = x => JSON.stringify(x);
 
 			return view;
 		}
@@ -49,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			view.args.bindTo('inputType', v =>
 				view.args.inputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
 			);
+
 			view.args.bindTo('outputType', v =>
 				view.args.outputCanHaveHeaders = v && v.substr(-2,2) === 'sv'
 			);

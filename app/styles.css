@@ -16,6 +16,7 @@ label.column {
 	flex-direction: column;
 	resize: none;
 	flex: 1;
+	position: relative;
 }
 
 label.column textarea {
@@ -79,7 +80,9 @@ label.column textarea {
 }
 
 textarea {
-	border-radius: 0px;
+	border-radius: 0;
+	outline-style: solid;
+	outline-color: transparent;
 }
 
 div.input-row, textarea.input {
@@ -94,3 +97,24 @@ textarea.output {
 	flex: 1;
 }
 
+.event-log {
+	position: absolute;
+	overflow: auto;
+	border: 1px solid #999;
+	top: 0.5em;
+	bottom: 2.25em;
+	left: 0.5em;
+	right: 0.5em;
+	margin: 0;
+}
+
+.event-log li {
+	font-family: monospace;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
+
+.bottom {
+	position: absolute;
+	bottom: 0.75em;
+}
