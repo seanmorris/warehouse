@@ -1,3 +1,18 @@
+<h1>Streams</h1>
+
+<p><a cv-link = "/">home</a></p>
+
+Open stream by name:
+
+<div class = "row" style = "max-width: 20em;">
+	<form cv-on = "submit:openStream(event)">
+		<input cv-bind = "newStream" placeholder = "enter a stream name">
+		<input type = "submit" class = "createStream" value = "open stream">
+	</form>
+</div>
+
+<h2>Active Streams</h2>
+
 <ul cv-each = "streams:stream">
-	<li><a href = "/streams/[[stream]]">[[stream]]</a></li>
+	<li><a cv-link = "/streams/[[stream]]">[[stream]]</a></li>
 </ul>

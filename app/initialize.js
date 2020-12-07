@@ -4,6 +4,9 @@ import { Config }   from 'curvature/base/Config';
 import { Model }    from 'curvature/model/Model';
 import { View }     from 'curvature/base/View';
 
+import { Form } from 'curvature/form/Form';
+import { View as MultiField } from 'curvature/form/multiField/View';
+
 Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com/');
 
 if(location.hostname == 'localhost')
@@ -22,9 +25,53 @@ document.addEventListener('DOMContentLoaded', () => {
 			const view = View.from(require('./home.html'));
 
 			view.args.links = {
+
 				home: '/'
+
 				, 'type changer': 'type-changer'
+
 				, streams: 'streams'
+
+				// , database: 'database'
+
+			};
+
+			return view;
+		}
+
+		, database: () => {
+
+			return false;
+
+			const view = View.from(require('./database.html'));
+
+			view.args.columns = ['a','b'];
+			view.args.backend = Config.get('backend-origin');
+
+			view.args.bindTo('columns', (v,k,t,d,vv,kk,tt,dd) => {
+				console.log(JSON.stringify(tt));
+			}, {children:true,wait:0});
+
+			view.createTable = event => {
+
+				event.preventDefault();
+
+				console.log(event.target);
+
+				fetch(event.target.action, {
+					method: event.target.method
+					, body: new FormData(event.target)
+					, headers: {Accept: 'text/csv', 'Ids-Output-Headers': true}
+				}).then(response => response.text()).then(response => {
+
+					console.log(response);
+
+				});
+
+			};
+
+			view.newColumn = () => {
+				view.args.columns.push('');
 			};
 
 			return view;
@@ -43,21 +90,40 @@ document.addEventListener('DOMContentLoaded', () => {
 				view.args.streams = streams;
 			});
 
+			view.openStream = event => {
+				event.preventDefault();
+				const path = `streams/${view.args.newStream}`;
+				console.log(path);
+				Router.go(path, false);
+			};
+
 			return view;
 		}
 
 		, 'streams/%streamName': ({streamName}) => {
 			const view = View.from(require('./streams.html'));
 
-			view.args.eventLog = [];
 
 			view.args.streamName = streamName;
 
-			const onServerEvent = event => view.args.eventLog.unshift({
-				class:  'ServerEvent'
-				, data: JSON.parse(event.data)
-				, id:   event.lastEventId
-			});
+			view.args.received = 0;
+			view.args.eventLog = [];
+
+			const eventBuffer  = [];
+
+			const onServerEvent = event => {
+				view.args.received++;
+
+				eventBuffer.unshift({
+					class:  'ServerEvent'
+					, data: JSON.parse(event.data)
+					, id:   event.lastEventId
+				});
+
+				view.onNextFrame(()=>{
+					view.args.eventLog.unshift(...eventBuffer.splice(0));
+				});
+			};
 
 			const url = Config.get('backend-origin') + '/subscribe/' + streamName;
 
@@ -65,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				withCredentials: true
 				, retry:         500
 			});
+
+			view.onRemove(()=>eventSource.close());
 
 			eventSource.addEventListener('ServerEvent', onServerEvent);
 

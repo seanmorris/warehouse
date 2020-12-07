@@ -2,6 +2,7 @@
 	"name": "seanmorris/warehouse",
 	"description": "Project template for Ids projects.",
 	"type": "project",
+	"minimum-stability": "dev",
 	"license": "Apache-2.0",
 	"authors": [
 		{
@@ -14,7 +15,9 @@
 		"ext-mbstring": "*",
 		"ext-redis": "*",
 		"ext-uuid": "*",
-		"seanmorris/ids": "dev-sm-api-tooling"
+		"seanmorris/ids": "dev-sm-api-tooling as dev-master",
+		"seanmorris/presskit": "dev-sm-api-tooling as dev-master",
+		"seanmorris/access": "dev-sm-api-tooling as dev-master"
 	},
 	"require-dev": {
 		"simpletest/simpletest": "dev-master"

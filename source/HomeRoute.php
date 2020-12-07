@@ -79,12 +79,17 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				, 'sess'  => $_SESSION['sess_id']
 			]);
 
-			usleep(100);
+			usleep(1000);
 		}
+
+		$this->redis->expire($streamName, 60*60);
+		$this->redis->xTrim($streamName, 100);
 
 		$this->redis->xAdd('systemStream_recently-published', '*', [
 			'stream' => $channel
 		]);
+
+		$this->redis->xTrim('systemStream_recently-published', 100);
 	}
 
 	public function subscribe($router)
@@ -135,7 +140,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$events = $redis->xRevRange($streamName, '+', '-');
 
-		$totals = array_reduce($events, function($totals, $item){
+		$totals = (array) array_reduce($events, function($totals, $item){
 
 			$totals->{ $item['stream'] } = 1 + ( $totals->{ $item['stream'] } ?? 0 );
 
@@ -143,10 +148,35 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		}, (object)[]);
 
+		arsort($totals);
+
 		$response = new \SeanMorris\Ids\Api\Response($router->request());
 
-		$response->setContent(array_keys((array)$totals));
+		$response->setContent(array_keys($totals));
 
 		return $response;
+	}
+
+	public function createScaffold($router)
+	{
+		return;
+		$request = $router->request();
+
+		$response = new \SeanMorris\Ids\Api\Response($request);
+
+		$contentTypeSplit = explode(';', $request->headers('Content-Type'));
+
+		$contentType = $contentTypeSplit[0];
+
+		$post = $request->read()->current();
+
+		$record = \SeanMorris\PressKit\Scaffold::produceScaffold([
+			'name' => $post['tableName']
+		]);
+
+		$record->title = 'lol';
+		$record->body  = 'wow.';
+
+		$record->save();
 	}
 }

@@ -65,9 +65,18 @@ label.column textarea {
 	margin: 0.5em;
 }
 
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
 .row {
 	display: flex;
 	width: 100%;
+}
+
+.inline {
+	display: inline-flex;
 }
 
 .row > input {
@@ -118,3 +127,18 @@ textarea.output {
 	position: absolute;
 	bottom: 0.75em;
 }
+
+.db-columns {
+	margin: 0.125em;
+	max-width: 17em;
+}
+
+.db-columns > button {
+	margin: 0.125em;
+}
+
+
+.db-columns > * > * {
+	margin: 0.125em;
+}
+
