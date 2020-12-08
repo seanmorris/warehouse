@@ -63,7 +63,6 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 	{
 		Log::error($lifetime);
 
-		// return 365 * 24 * 60 * 60;
-		return TRUE;
+		return 365 * 24 * 60 * 60;
 	}
 }
