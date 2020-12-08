@@ -49,7 +49,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		if($settings->pass)
 		{
 			\SeanMorris\Ids\Log::error($settings->host, $settings->port ?: 6379, $settings->pass);
-			\SeanMorris\Ids\Log::error($this->redis->auth($redisPass));
+			\SeanMorris\Ids\Log::error($this->redis->auth($settings->pass));
 		}
 	}
 
