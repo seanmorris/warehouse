@@ -169,12 +169,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			return 'Cannot connect!';
 		}
 
-		$redis = new \Redis;
-		$redis->pconnect($settings->host, $settings->port ?? 6379);
-
 		$streamName = 'systemStream_recently-published';
 
-		$events = $redis->xRevRange($streamName, '+', '-') ?: [];
+		$events = $this->redis->xRevRange($streamName, '+', '-') ?: [];
 
 		$totals = (array) array_reduce($events, function($totals, $item){
 
