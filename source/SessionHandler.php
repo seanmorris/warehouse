@@ -43,21 +43,21 @@ class SessionHandler implements SessionHandlerInterface, SessionIdInterface
 	{
 		Log::error($sessionId);
 
-		return $this->redis->get($this->savePath . '/' . $sessionName);
+		return $this->redis->get($this->savePath . '/sess_' . $sessionId);
 	}
 
 	public function write($sessionId, $userData)
 	{
 		Log::error($sessionId, $userData);
 
-		return $this->redis->set($this->savePath . '/' . $sessionName, $userData);
+		return $this->redis->set($this->savePath . '/sess_' . $sessionId, $userData);
 	}
 
 	public function destroy($sessionId)
 	{
 		Log::error($sessionId);
 
-		return $this->redis->del($this->savePath . '/' . $sessionName);
+		return $this->redis->del($this->savePath . '/sess_' . $sessionId);
 	}
 
 	public function gc($lifetime)
