@@ -127,10 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			const url = Config.get('backend-origin') + '/subscribe/' + streamName;
 
-			const eventSource = new EventSource(url, {
-				withCredentials: true
-				, retry:         500
-			});
+			const eventSource = new EventSource(url, {credentials:'include'});
 
 			view.onRemove(()=>eventSource.close());
 
