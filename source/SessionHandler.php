@@ -8,8 +8,6 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 {
 	public function __construct()
 	{
-		parent::__construct();
-
 		if(!$settings = \SeanMorris\Ids\Settings::read('redis'))
 		{
 			return FALSE;
