@@ -42,11 +42,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			return FALSE;
 		}
 
+		\SeanMorris\Ids\Log::error($settings);
+
 		$this->redis = new \Redis;
 
 		$this->redis->pconnect($settings->host, $settings->port ?? 6379);
-
-		\SeanMorris\Ids\Log::error($settings);
 
 		if(isset($settings->auth))
 		{
