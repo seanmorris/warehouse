@@ -20,7 +20,7 @@ class SessionHandler implements SessionHandlerInterface, SessionIdInterface
 
 	public function create_sid()
 	{
-		return uniqid();
+		return $this->sessionId = $this->sessionId ?? uniqid();
 	}
 
 	public function open($savePath, $sessionName)
