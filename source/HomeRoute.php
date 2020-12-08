@@ -4,10 +4,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 {
 	public function _init($router)
 	{
-		$sessionHandler = new SessionHandler;
-
-		session_set_save_handler($sessionHandler, TRUE);
-
 		$request = $router->request();
 		$method  = $request->method();
 
