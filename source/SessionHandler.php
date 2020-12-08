@@ -53,7 +53,7 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 			return $userData;
 		}
 
-		return '';
+		return serialize([]);
 	}
 
 	public function write($sessionId, $userData)
