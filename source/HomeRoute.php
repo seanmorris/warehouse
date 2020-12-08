@@ -80,6 +80,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		foreach($request->read() as $record)
 		{
+			$records++;
 			$this->redis->xAdd($streamName, '*', [
 				'payload' => json_encode($record)
 				, 'user'  => $session->userId
@@ -89,14 +90,18 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			usleep(1000);
 		}
 
-		$this->redis->expire($streamName, 60*60);
-		$this->redis->xTrim($streamName, 100);
+		if($records)
+		{
+			$this->redis->expire($streamName, 60*60);
+			$this->redis->xTrim($streamName, 100);
 
-		$this->redis->xAdd('systemStream_recently-published', '*', [
-			'stream' => $channel
-		]);
+			$this->redis->xAdd('systemStream_recently-published', '*', [
+				'stream' => $channel
+			]);
 
-		$this->redis->xTrim('systemStream_recently-published', 100);
+			$this->redis->xTrim('systemStream_recently-published', 100);
+		}
+
 	}
 
 	public function subscribe($router)
