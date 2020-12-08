@@ -119,23 +119,23 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$start = time();
 
-		if($lastEventId = $request->headers('Last-Event-ID'))
-		{
-
-		}
-		else if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
+		if(!$lastEventId = $request->headers('Last-Event-ID'))
 		{
 			$lastEventId = '$';
 
-			$messages = array_reverse($messages);
-
-			foreach($messages as $id => $message)
+			if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
 			{
-				yield(new \SeanMorris\Ids\Http\Event([
-					'payload' => json_decode($message['payload'])
-					, 'user'  => $message['user']
-					, 'sess'  => $message['sess']
-				], $id));
+
+				$messages = array_reverse($messages);
+
+				foreach($messages as $id => $message)
+				{
+					yield(new \SeanMorris\Ids\Http\Event([
+						'payload' => json_decode($message['payload'])
+						, 'user'  => $message['user']
+						, 'sess'  => $message['sess']
+					], $id));
+				}
 			}
 		}
 
