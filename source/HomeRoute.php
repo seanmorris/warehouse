@@ -156,6 +156,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
+			$heartbeat = \SeanMorris\Ids\Settings::read('subscribeHeartbeat');
+
+			if($heartbeat && microtime(true) - $start >= $heartbeat)
+			{
+				yield "\n";
+			}
+
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
 
 			if($timeout && microtime(true) - $start >= $timeout)
