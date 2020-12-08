@@ -117,7 +117,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$request = $router->request();
 
-		$lastEventId = $request->headers('Last-Event-Id') ?: '$';
+		$lastEventId = $request->headers('Last-Event-ID') ?: '$';
 
 		$start = time();
 
