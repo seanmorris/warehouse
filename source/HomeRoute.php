@@ -48,7 +48,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		if($settings->pass)
 		{
-			$this->redis->auth([$settings->user ?: '', $settings->pass]);
+			$this->redis->auth($settings->pass);
 		}
 	}
 
