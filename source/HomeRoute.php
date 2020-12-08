@@ -39,6 +39,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		if(!$settings = \SeanMorris\Ids\Settings::read('redis'))
 		{
+			\SeanMorris\Ids\Log::error($settings);
 			return FALSE;
 		}
 
