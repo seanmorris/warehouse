@@ -8,6 +8,8 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 {
 	public function __construct()
 	{
+		parent::__construct();
+
 		if(!$settings = \SeanMorris\Ids\Settings::read('redis'))
 		{
 			return FALSE;
@@ -16,13 +18,19 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 		$this->redis = new \Redis;
 
 		$this->redis->pconnect($settings->host, $settings->port ?: 6379);
+
+		if($settings->pass)
+		{
+			$this->redis->auth($settings->pass);
+		}
 	}
 
 	public function open($savePath, $sessionName)
 	{
 		Log::error($savePath, $sessionName);
 
-		$this->savePath = $savePath;
+		$this->sessionName = $sessionName;
+		$this->savePath    = $savePath;
 
 		return true;
 	}
