@@ -45,6 +45,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$this->redis = new \Redis;
 
 		$this->redis->pconnect($settings->host, $settings->port ?? 6379);
+
+		isset($settings->auth) && $this->redis->auth($settings->auth);
+
 	}
 
 	public function changeTypes($router)
