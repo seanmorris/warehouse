@@ -116,7 +116,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$streamHash = sha1($channel);
 		$streamName = 'userStream_' . $streamHash;
 
-		$start = time();
+		$start = microtime(true);
 
 		if(!$lastEventId = $request->headers('Last-Event-Id'))
 		{
@@ -155,7 +155,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
-			if(time() - $start >= 1)
+			if(time() - $start >= 150000)
 			{
 				break;
 			}
