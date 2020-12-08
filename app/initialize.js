@@ -7,7 +7,7 @@ import { View }     from 'curvature/base/View';
 import { Form } from 'curvature/form/Form';
 import { View as MultiField } from 'curvature/form/multiField/View';
 
-Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com/');
+Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com');
 
 if(location.hostname == 'localhost')
 {
