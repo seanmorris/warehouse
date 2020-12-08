@@ -155,7 +155,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
-			if(time() - $start > 10)
+			if(time() - $start >= 1)
 			{
 				break;
 			}
