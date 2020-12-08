@@ -117,12 +117,16 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$request = $router->request();
 
-		$lastEventId = $request->headers('Last-Event-ID') ?: '$';
-
 		$start = time();
 
-		if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
+		if($lastEventId = $request->headers('Last-Event-ID'))
 		{
+
+		}
+		else if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
+		{
+			$lastEventId = '$';
+
 			$messages = array_reverse($messages);
 
 			foreach($messages as $id => $message)
