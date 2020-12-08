@@ -155,7 +155,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
-			$timeout = \SeanMorris\Ids\Settings::read('IDS_SUBSCRIBE_TIMEOUT');
+			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
 
 			if($timeout && microtime(true) - $start >= $timeout)
 			{
