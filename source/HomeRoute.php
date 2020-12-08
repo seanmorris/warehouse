@@ -135,6 +135,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			}
 		}
 
+		$start = time();
+
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
 			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 10);
@@ -149,6 +151,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 						, 'sess'  => $message['sess']
 					], $id));
 				}
+			}
+
+			if(time() - $start > 10)
+			{
+				break;
 			}
 		}
 	}
