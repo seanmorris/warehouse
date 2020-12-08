@@ -44,14 +44,14 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 	{
 		Log::error($sessionId);
 
-		return $this->redis->get($this->savePath . '/sess_' . $sessionId) ?: '';
+		return $this->redis->get('sess_' . $sessionId) ?: '';
 	}
 
 	public function write($sessionId, $userData)
 	{
 		Log::error($sessionId, $userData);
 
-		$this->redis->set($this->savePath . '/sess_' . $sessionId, $userData);
+		$this->redis->set('sess_' . $sessionId, $userData);
 
 		return true;
 	}
@@ -60,7 +60,7 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 	{
 		Log::error($sessionId);
 
-		$this->redis->del($this->savePath . '/sess_' . $sessionId);
+		$this->redis->del('sess_' . $sessionId);
 
 		return true;
 	}
