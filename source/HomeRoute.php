@@ -48,8 +48,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		if($settings->pass)
 		{
-			\SeanMorris\Ids\Log::error($settings->host, $settings->port ?: 6379, $settings->pass);
-			\SeanMorris\Ids\Log::error($this->redis->auth($settings->pass));
+			$this->redis->auth($settings->pass);
 		}
 	}
 
@@ -118,8 +117,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$streamName = 'userStream_' . $streamHash;
 
 		$start = time();
-
-		\SeanMorris\Ids\Log::error($request->headers());
 
 		if(!$lastEventId = $request->headers('Last-Event-Id'))
 		{
