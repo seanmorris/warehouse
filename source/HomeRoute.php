@@ -119,7 +119,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$start = time();
 
-		if(!$lastEventId = $request->headers('Last-Event-ID'))
+		\SeanMorris\Ids\Log::error($request->headers());
+
+		if(!$lastEventId = $request->headers('Last-Event-Id'))
 		{
 			$lastEventId = '$';
 
