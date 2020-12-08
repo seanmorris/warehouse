@@ -145,11 +145,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				foreach($moreMessages[$streamName] as $id => $message)
 				{
-					yield(new \SeanMorris\Ids\Http\Event([
+					yield($id => new \SeanMorris\Ids\Http\Event([
 						'payload' => json_decode($message['payload'])
 						, 'user'  => $message['user']
 						, 'sess'  => $message['sess']
 					], $id));
+
+					$lastEventId = $id;
 				}
 			}
 
