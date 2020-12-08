@@ -11,6 +11,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$corsHeaders = [
 			'Content-Type'
+			, 'Cookie'
 			, 'Authorization'
 			, 'X-Requested-With'
 			, 'Cache-Control'
