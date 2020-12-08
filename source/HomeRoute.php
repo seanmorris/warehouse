@@ -94,13 +94,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		if($records)
 		{
 			$this->redis->expire($streamName, 60*60);
-			$this->redis->xTrim($streamName, 100);
+			$this->redis->xTrim($streamName, 1000);
 
 			$this->redis->xAdd('systemStream_recently-published', '*', [
 				'stream' => $channel
 			]);
 
-			$this->redis->xTrim('systemStream_recently-published', 100);
+			$this->redis->xTrim('systemStream_recently-published', 10000);
 		}
 
 	}
