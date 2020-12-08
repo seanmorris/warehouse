@@ -174,7 +174,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$streamName = 'systemStream_recently-published';
 
-		$events = $redis->xRevRange($streamName, '+', '-');
+		$events = $redis->xRevRange($streamName, '+', '-') ?: [];
 
 		$totals = (array) array_reduce($events, function($totals, $item){
 
