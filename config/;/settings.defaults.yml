@@ -1,0 +1,5 @@
+session:
+  lifetime: 315360000
+  path: "/"
+  SameSite: None
+  Secure: true
