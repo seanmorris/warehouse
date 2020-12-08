@@ -91,7 +91,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$settings = \SeanMorris\Ids\Settings::read('redis');
 
-		if($records)
+		if($channel[0] !== '-' && $records)
 		{
 			$this->redis->expire($streamName, 60*60);
 			$this->redis->xTrim($streamName, 1000);
