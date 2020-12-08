@@ -26,9 +26,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			, 'Ids-Output-Headers'
 		];
 
-		$refererHost = substr($request->headers('Referer'), 0, strlen('http://localhost:3333'));
+		$origin = $request->headers('Origin');
 
-		if($refererHost === 'http://localhost:3333')
+		if($origin === 'http://localhost:3333')
 		{
 			header(sprintf('Access-Control-Allow-Origin: %s', 'http://localhost:3333'));
 		}
