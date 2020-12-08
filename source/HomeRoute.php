@@ -83,7 +83,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 
 		$this->redis->expire($streamName, 60*60);
-		$this->redis->xTrim($streamName, 100);
+		$this->redis->xTrim($streamName, 10);
 
 		$this->redis->xAdd('systemStream_recently-published', '*', [
 			'stream' => $channel
@@ -104,7 +104,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$request = $router->request();
 
-		$lastEventId = $request->headers('Last-Event-ID') ?: '$';
+		$lastEventId = $request->headers('Last-Event-ID') ?: 0;
 
 		$start = time();
 
