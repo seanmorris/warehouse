@@ -4,7 +4,7 @@ namespace SeanMorris\Warehouse;
 use \SeanMorris\Ids\Log;
 use \SessionHandlerInterface, \SessionIdInterface;
 
-class SessionHandler implements SessionHandlerInterface, SessionIdInterface
+class SessionHandler extends \SessionHandler implements SessionHandlerInterface, SessionIdInterface
 {
 	public function __construct()
 	{
@@ -16,11 +16,6 @@ class SessionHandler implements SessionHandlerInterface, SessionIdInterface
 		$this->redis = new \Redis;
 
 		$this->redis->pconnect($settings->host, $settings->port ?: 6379);
-	}
-
-	public function create_sid()
-	{
-		return $this->sessionId = $this->sessionId ?? uniqid();
 	}
 
 	public function open($savePath, $sessionName)
