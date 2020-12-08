@@ -83,7 +83,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 
 		$this->redis->expire($streamName, 60*60);
-		$this->redis->xTrim($streamName, 10);
+		$this->redis->xTrim($streamName, 100);
 
 		$this->redis->xAdd('systemStream_recently-published', '*', [
 			'stream' => $channel
@@ -104,17 +104,31 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$request = $router->request();
 
-		$lastEventId = $request->headers('Last-Event-ID') ?: 0;
+		$lastEventId = $request->headers('Last-Event-ID') ?: '$';
 
 		$start = time();
 
+		if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
+		{
+			$messages = array_reverse($messages);
+
+			foreach($messages as $id => $message)
+			{
+				yield(new \SeanMorris\Ids\Http\Event([
+					'payload' => json_decode($message['payload'])
+					, 'user'  => $message['user']
+					, 'sess'  => $message['sess']
+				], $id));
+			}
+		}
+
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
-			$messages = $this->redis->xRead([$streamName => $lastEventId], 1, 10);
+			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 10);
 
-			if($messages[$streamName] ?? false)
+			if($moreMessages[$streamName] ?? false)
 			{
-				foreach($messages[$streamName] as $id => $message)
+				foreach($moreMessages[$streamName] as $id => $message)
 				{
 					yield(new \SeanMorris\Ids\Http\Event([
 						'payload' => json_decode($message['payload'])
