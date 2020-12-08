@@ -91,7 +91,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 
 		$settings = \SeanMorris\Ids\Settings::read('redis');
-		\SeanMorris\Ids\Log::error($settings);
+		\SeanMorris\Ids\Log::error($settings->host, $settings->port, $settings->auth);
 
 		if($records)
 		{
