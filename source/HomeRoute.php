@@ -107,6 +107,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 	public function subscribe($router)
 	{
+		$request = $router->request();
+
 		header('Cache-Control: no-cache');
 		header('Content-Type: text/event-stream');
 
@@ -114,8 +116,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$streamHash = sha1($channel);
 		$streamName = 'userStream_' . $streamHash;
-
-		$request = $router->request();
 
 		$start = time();
 
@@ -125,7 +125,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 			if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
 			{
-
 				$messages = array_reverse($messages);
 
 				foreach($messages as $id => $message)
@@ -138,8 +137,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 		}
-
-		$start = time();
 
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
