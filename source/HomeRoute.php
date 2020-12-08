@@ -139,7 +139,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
-			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 10);
+			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 1);
 
 			if($moreMessages[$streamName] ?? false)
 			{
