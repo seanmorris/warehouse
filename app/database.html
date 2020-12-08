@@ -1,0 +1,18 @@
+<h1>Database</h1>
+
+<p><a cv-link = "/">home</a></p>
+
+Create a new table:
+
+<div class = "row" style = "max-width: 20em;">
+	<form method = "POST" action = "[[backend]]/createScaffold" cv-on = "submit:createTable(event)">
+		<input name = "tableName" cv-bind = "newTable" placeholder = "enter a table name">
+		<input type = "submit" value = "open stream">
+	</form>
+</div>
+
+
+<div class = "column inline db-columns">
+	<div class = "column" cv-each = "columns:column:c"><input cv-bind = "column"></div>
+	<button cv-on = "click:newColumn(event)">+</button>
+</div>
