@@ -155,7 +155,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
-			if(microtime(true) - $start >= 0.001)
+			if(microtime(true) - $start >= 0.1)
 			{
 				break;
 			}
