@@ -626,7 +626,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 _Config.Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com');
 
-if (location.hostname == 'localhost') {
+if (location.hostname == 'localhost:2020') {
   _Config.Config.set('backend-origin', '//localhost:2020');
 }
 
@@ -837,7 +837,7 @@ module.exports = "<h1>Streams</h1>\n\n<p><a cv-link = \"/\">home</a></p>\n\nOpen
 });
 
 ;require.register("streams.html", function(exports, require, module) {
-module.exports = "<h1>[[streamName]]</h1>\n\n<p><a cv-link = \"/streams\">back</a></p>\n\n<label class = \"bordered column\">\n\tinput\n\t<textarea cv-bind = \"input\" class = \"input\"></textarea>\n</label>\n\n<div class = \"mid-bar\">\n\n\t<div class = \"left-bar\">\n\n\t\t<label cv-if = \"inputCanHaveHeaders\">\n\t\t\tinput has headers\n\t\t\t<input type = \"checkbox\" cv-bind = \"inputHeaders\" value = \"1\" />\n\t\t</label>\n\n\t</div>\n\n\t<div class = \"center-bar\">\n\n\t\t<select cv-bind = \"inputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<!-- <option value = \"text/yaml\">text/yaml</option> -->\n\t\t</select>\n\n\t\t<button cv-on = \"click:publishMessage(event)\"> publishMessage → </button>\n\t</div>\n\n</div>\n\n<label class = \"bordered column\">\n\n\t<ul class = \"event-log\" cv-each = \"eventLog:event:i\">\n\t\t<li cv-with = \"event\" cv-carry = \"i\">\n\t\t\tid: [[id]] user: [[data.user]] payload: [[data.payload|toJson]]\n\t\t</li>\n\t</ul>\n\n\t<div class = \"bottom\">output [[received]]</div>\n\n</label>\n"
+module.exports = "<h1>[[streamName]]</h1>\n\n<p><a cv-link = \"/streams\">back</a></p>\n\n<label class = \"bordered column\">\n\tinput\n\t<textarea cv-bind = \"input\" class = \"input\"></textarea>\n</label>\n\n<div class = \"mid-bar\">\n\n\t<div class = \"left-bar\">\n\n\t\t<label cv-if = \"inputCanHaveHeaders\">\n\t\t\tinput has headers\n\t\t\t<input type = \"checkbox\" cv-bind = \"inputHeaders\" value = \"1\" />\n\t\t</label>\n\n\t</div>\n\n\t<div class = \"center-bar\">\n\n\t\t<select cv-bind = \"inputType\">\n\t\t\t<option value = \"text/plain\">text/plain</option>\n\t\t\t<option value = \"text/csv\">text/csv</option>\n\t\t\t<option value = \"text/tsv\">text/tsv</option>\n\t\t\t<option value = \"text/json\">text/json</option>\n\t\t\t<!-- <option value = \"text/yaml\">text/yaml</option> -->\n\t\t</select>\n\n\t\t<button cv-on = \"click:publishMessage(event)\"> publishMessage → </button>\n\t</div>\n\n</div>\n\n<label class = \"bordered column\">\n\n\t<ul class = \"event-log\" cv-each = \"eventLog:event:i\">\n\t\t<li cv-with = \"event\" cv-carry = \"i\">\n\t\t\tid: [[id]] user: [[data.user]] payload: [[data.payload|toJson]]\n\t\t</li>\n\t</ul>\n\n\t<div class = \"bottom\">output ([[received]] messages)</div>\n\n</label>\n"
 });
 
 ;require.register("___globals___", function(exports, require, module) {
