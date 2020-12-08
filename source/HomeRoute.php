@@ -4,6 +4,10 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 {
 	public function _init($router)
 	{
+		$sessionHandler = new SessionHandler;
+
+		session_set_save_handler($sessionHandler);
+
 		$request = $router->request();
 		$method  = $request->method();
 
@@ -44,7 +48,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$this->redis = new \Redis;
 
-		$this->redis->connect($settings->host, $settings->port ?: 6379);
+		$this->redis->pconnect($settings->host, $settings->port ?: 6379);
 
 		if($settings->pass)
 		{
