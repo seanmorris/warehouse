@@ -624,7 +624,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-_Config.Config.set('backend-origin', '//seanmorris-warehouse.herokuapp.com');
+_Config.Config.set('backend-origin', '//backend.warehouse.seanmorr.is');
 
 if (location.host == 'localhost:3333') {
   _Config.Config.set('backend-origin', '//localhost:2020');
