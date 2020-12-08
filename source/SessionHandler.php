@@ -44,7 +44,16 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 	{
 		Log::error($sessionId);
 
-		return $this->redis->get('sess_' . $sessionId) ?: '';
+		$userData = $this->redis->get('sess_' . $sessionId);
+
+		Log::error($userData);
+
+		if($userData)
+		{
+			return $userData;
+		}
+
+		return '';
 	}
 
 	public function write($sessionId, $userData)
