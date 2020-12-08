@@ -44,11 +44,12 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$this->redis = new \Redis;
 
-		$this->redis->pconnect($settings->host, $settings->port ?? 6379);
+		$this->redis->connect($settings->host, $settings->port ?? 6379);
 
-		if($settings->pass)
+		if($redisPass = $settings->pass)
 		{
-			\SeanMorris\Ids\Log::error($this->redis->auth($settings->pass));
+			\SeanMorris\Ids\Log::error($settings->host, $settings->port, $settings->pass);
+			\SeanMorris\Ids\Log::error($this->redis->auth($redisPass));
 		}
 	}
 
@@ -89,7 +90,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 
 		$settings = \SeanMorris\Ids\Settings::read('redis');
-		\SeanMorris\Ids\Log::error($settings->host, $settings->port, $settings->pass);
 
 		if($records)
 		{
