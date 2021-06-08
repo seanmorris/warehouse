@@ -134,7 +134,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			?? FALSE;
 
 		yield(new \SeanMorris\Ids\Http\Event([
-			'payload' => str_repeat(' ', 2048)
+			'payload' => str_repeat(' ', 4096)
 		]));
 
 		if(!$lastEventId)
