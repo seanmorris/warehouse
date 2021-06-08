@@ -117,8 +117,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 	{
 		$request = $router->request();
 
-		header('Cache-Control: no-cache');
 		header('Content-Type: text/event-stream');
+		header('Cache-Control: no-cache');
+		header('Connection: keep-alive');
 
 		$channel = $router->path()->consumeNode();
 
