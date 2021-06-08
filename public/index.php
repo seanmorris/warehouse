@@ -48,6 +48,7 @@ else if($response instanceof Traversable || is_array($response))
 	{
 		echo $chunk;
 		ob_get_level() && ob_flush();
+		ob_end_flush();
 		flush();
 	}
 }
