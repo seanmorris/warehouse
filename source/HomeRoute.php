@@ -129,6 +129,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$start = microtime(true);
 
+		yield "Retry: 1000\n";
+
 		$lastEventId = $request->headers('Last-Event-Id')
 			?? $_GET['last-event-id']
 			?? FALSE;
@@ -155,8 +157,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$heartbeat = \SeanMorris\Ids\Settings::read('subscribeHeartbeat');
 
 		$lastBeat = $start;
-
-		yield "Retry: 1000\n";
 
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
