@@ -176,7 +176,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$lastBeat = microtime(true);
 
-				yield new \SeanMorris\Ids\Http\Event(['payload' => "KEEPALIVE"], $id);
+				yield new \SeanMorris\Ids\Http\Event(['payload' => "KEEPALIVE"]);
 			}
 
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
