@@ -13,6 +13,7 @@
 	"require": {
 		"php": "^7.4",
 		"ext-mbstring": "*",
+		"ext-openssl": "*",
 		"ext-redis": "*",
 		"ext-uuid": "*",
 		"seanmorris/ids": "dev-sm-api-tooling as dev-master",
