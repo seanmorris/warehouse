@@ -146,6 +146,10 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			}
 		}
 
+		$heartbeat = \SeanMorris\Ids\Settings::read('subscribeHeartbeat');
+
+		$lastBeat = $start;
+
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
 			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 1);
@@ -164,10 +168,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
-			$heartbeat = \SeanMorris\Ids\Settings::read('subscribeHeartbeat');
-
-			if($heartbeat && microtime(true) - $start >= $heartbeat)
+			if($heartbeat && microtime(true) - $lastBeat >= $heartbeat)
 			{
+				$lastBeat = microtime(true);
 				yield "\n";
 			}
 
