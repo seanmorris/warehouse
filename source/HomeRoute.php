@@ -31,7 +31,12 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 		else
 		{
-			header(sprintf('Access-Control-Allow-Origin: %s', 'https://*.seanmorr.is'));
+			$validSuffix = '.seanmorr.is';
+			$validLength = strlen($validSuffix);
+
+			$checkSuffix = substr($_SERVER['HTTP_HOST'], -$validLength);
+
+			header(sprintf('Access-Control-Allow-Origin: %s', ));
 		}
 
 		header('Access-Control-Allow-Credentials: true');
