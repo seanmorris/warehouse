@@ -176,6 +176,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				}
 			}
 
+			if($_GET['quick'] ?? FALSE)
+			{
+				break;
+			}
+
 			if($heartbeat && microtime(true) - $lastBeat >= $heartbeat)
 			{
 				$lastBeat = microtime(true);
