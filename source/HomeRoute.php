@@ -45,7 +45,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$this->redis = new \Redis;
 
-		$this->redis->connect($settings->host, $settings->port ?: 6379);
+		// $this->redis->connect($settings->host, $settings->port ?: 6379);
+
+		$this->redis->connect(
+			$settings->host
+			, $settings->port ?: 6379
+			, ['allow_self_signed' => true]
+		);
 
 		if($settings->pass)
 		{
