@@ -119,6 +119,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		header('Status: 200');
 		header('Content-Type: text/event-stream');
+		header('Transfer-Encoding: chunked');
 		header('Cache-Control: no-cache');
 		header('Connection: keep-alive');
 
