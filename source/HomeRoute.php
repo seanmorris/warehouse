@@ -133,6 +133,10 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			?? $_GET['last-event-id']
 			?? FALSE;
 
+		yield(new \SeanMorris\Ids\Http\Event([
+			'payload' => str_repeat(' ', 2048)
+		]));
+
 		if(!$lastEventId)
 		{
 			$lastEventId = '$';
