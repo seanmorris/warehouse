@@ -77,14 +77,19 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$records = 0;
 
+		\SeanMorris\Ids\Log::debug('Publishing...');
+
 		foreach($request->read() as $record)
 		{
-			$records++;
+			\SeanMorris\Ids\Log::debug($record);
+
 			$this->redis->xAdd($streamName, '*', [
 				'payload' => json_encode($record)
 				, 'user'  => $session->userId
 				, 'sess'  => $_SESSION['sess_id']
 			]);
+
+			$records++;
 
 			usleep(1000);
 		}
