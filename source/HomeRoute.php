@@ -95,8 +95,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			]);
 
 			$records++;
-
-			usleep(1000);
 		}
 
 		$settings = \SeanMorris\Ids\Settings::read('redis');
