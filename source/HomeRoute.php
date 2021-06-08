@@ -183,7 +183,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				yield new \SeanMorris\Ids\Http\Event([
 					'payload' => "KEEPALIVE "
 						. microtime(true)
-						. str_repeat(' ', 2049)
 					]);
 			}
 
