@@ -48,9 +48,9 @@ else if($response instanceof Traversable || is_array($response))
 	{
 		echo $chunk;
 		echo "\r\n";
-		flush();
-		ob_get_level() && ob_flush();
-		ob_get_level() && ob_end_flush();
+		// flush();
+		// ob_get_level() && ob_flush();
+		// ob_get_level() && ob_end_flush();
 	}
 }
 else
