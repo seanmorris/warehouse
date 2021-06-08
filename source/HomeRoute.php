@@ -179,6 +179,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$lastBeat = microtime(true);
 
+				\SeanMorris\Ids\Log::debug('Heartbeat...');
+
 				yield new \SeanMorris\Ids\Http\Event(['payload' => "KEEPALIVE " . microtime(true)]);
 			}
 
