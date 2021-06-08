@@ -180,8 +180,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$lastBeat = microtime(true);
 
-				\SeanMorris\Ids\Log::debug('Heartbeat...');
-
 				yield "\n";
 
 				// yield new \SeanMorris\Ids\Http\Event([
