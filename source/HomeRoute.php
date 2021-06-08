@@ -127,7 +127,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$start = microtime(true);
 
-		if(!$lastEventId = $request->headers('Last-Event-Id') ?? $_GET['last-event-id'] ?? FALSE)
+		$lastEventId = $request->headers('Last-Event-Id')
+			?? $_GET['last-event-id']
+			?? FALSE;
+
+		if(!$lastEventId)
 		{
 			$lastEventId = '$';
 
@@ -171,7 +175,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			if($heartbeat && microtime(true) - $lastBeat >= $heartbeat)
 			{
 				$lastBeat = microtime(true);
-				yield "\n";
+				yield "KEEPALIVE\n";
 			}
 
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
