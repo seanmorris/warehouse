@@ -51,7 +51,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			$settings->host
 			, $settings->port ?: 6379
 			, 0, null, 0, 0
-			, ['verify_peer_name' => false, 'verify_peer' => false]
+			, ['verify_peer_name' => false, 'verify_peer' => false, 'allow_self_signed' => true]
 		);
 
 		if($settings->pass)
