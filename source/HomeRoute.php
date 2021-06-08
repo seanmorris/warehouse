@@ -133,10 +133,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			?? $_GET['last-event-id']
 			?? FALSE;
 
-		yield(new \SeanMorris\Ids\Http\Event([
-			'payload' => str_repeat(' ', 4096)
-		]));
-
 		if(!$lastEventId)
 		{
 			$lastEventId = '$';
@@ -184,7 +180,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 				\SeanMorris\Ids\Log::debug('Heartbeat...');
 
-				yield new \SeanMorris\Ids\Http\Event(['payload' => "KEEPALIVE " . microtime(true)]);
+				yield new \SeanMorris\Ids\Http\Event([
+					'payload' => "KEEPALIVE "
+						. microtime(true)
+						. str_repeat(' ', 2049)
+					]);
 			}
 
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
