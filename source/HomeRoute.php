@@ -31,7 +31,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		}
 		else
 		{
-			header(sprintf('Access-Control-Allow-Origin: %s', 'https://warehouse.seanmorr.is'));
+			header(sprintf('Access-Control-Allow-Origin: %s', 'https://*.seanmorr.is'));
 		}
 
 		header('Access-Control-Allow-Credentials: true');
@@ -186,10 +186,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				$lastBeat = microtime(true);
 
 				yield "\n";
-
-				// yield new \SeanMorris\Ids\Http\Event([
-				// 	'payload' => "KEEPALIVE " . microtime(true)
-				// ]);
 			}
 
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
