@@ -34,11 +34,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			$validSuffix = '.seanmorr.is';
 			$validLength = strlen($validSuffix);
 
-			$checkSuffix = substr($_SERVER['HTTP_REFERER'], -$validLength);
+			$refDomain = $_SERVER['HTTP_ORIGIN'];
+
+			$checkSuffix = substr($refDomain, -$validLength);
 
 			if($checkSuffix === $validSuffix)
 			{
-				header(sprintf('Access-Control-Allow-Origin: %s', $_SERVER['HTTP_REFERER']));
+				header(sprintf('Access-Control-Allow-Origin: %s', $refDomain));
 			}
 		}
 
