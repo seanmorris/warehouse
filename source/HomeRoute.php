@@ -180,10 +180,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 				\SeanMorris\Ids\Log::debug('Heartbeat...');
 
-				yield new \SeanMorris\Ids\Http\Event([
-					'payload' => "KEEPALIVE "
-						. microtime(true)
-					]);
+				yield "\n";
+
+				// yield new \SeanMorris\Ids\Http\Event([
+				// 	'payload' => "KEEPALIVE " . microtime(true)
+				// ]);
 			}
 
 			$timeout = \SeanMorris\Ids\Settings::read('subscribeTimeout');
