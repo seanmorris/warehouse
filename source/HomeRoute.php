@@ -127,7 +127,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$start = microtime(true);
 
-		if(!$lastEventId = $request->headers('Last-Event-Id'))
+		if(!$lastEventId = $request->headers('Last-Event-Id') ?? $_GET['last-event-id'])
 		{
 			$lastEventId = '$';
 
