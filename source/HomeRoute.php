@@ -36,7 +36,10 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 			$checkSuffix = substr($_SERVER['HTTP_HOST'], -$validLength);
 
-			header(sprintf('Access-Control-Allow-Origin: %s', ));
+			if($checkSuffix === $validSuffix)
+			{
+				header(sprintf('Access-Control-Allow-Origin: %s', $_SERVER['HTTP_HOST']));
+			}
 		}
 
 		header('Access-Control-Allow-Credentials: true');
