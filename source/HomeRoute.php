@@ -156,6 +156,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$lastBeat = $start;
 
+		yield "Retry: 1000\n";
+
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
 			$moreMessages = $this->redis->xRead([$streamName => $lastEventId], 1, 1);
