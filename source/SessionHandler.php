@@ -17,6 +17,8 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 
 		$this->redis->pconnect($settings->host, $settings->port ?: 6379);
 
+		\SeanMorris\Ids\Log::debug($settings->host, $settings->port ?: 6379);
+
 		if($settings->pass)
 		{
 			$this->redis->auth($settings->pass);
