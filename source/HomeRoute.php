@@ -117,7 +117,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 	{
 		$request = $router->request();
 
-		header('Status: 200');
+		header('HTTP/1.1 200 OK');
 		header('Content-Type: text/event-stream');
 		header('Transfer-Encoding: chunked');
 		header('Cache-Control: no-cache');
