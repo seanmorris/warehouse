@@ -110,7 +110,6 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 			$this->redis->xTrim('systemStream_recently-published', 10000);
 		}
-
 	}
 
 	public function subscribe($router)
@@ -138,7 +137,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		{
 			$lastEventId = '$';
 
-			if($messages = $this->redis->xRevRange($streamName, '+', '-', 10))
+			if($messages = $this->redis->xRevRange($streamName, '+', '-', 100))
 			{
 				$messages = array_reverse($messages);
 
