@@ -21,7 +21,7 @@ class SessionHandler extends \SessionHandler implements SessionHandlerInterface,
 			$settings->host
 			, $settings->port ?: 6379
 			, 0, null, 0, 0
-			, ['verify_peer_name' => false, 'verify_peer' => false, 'allow_self_signed' => true]
+			, ['stream' => ['verify_peer_name' => false, 'verify_peer' => false, 'allow_self_signed' => true]]
 		);
 
 		\SeanMorris\Ids\Log::debug('connected!');
