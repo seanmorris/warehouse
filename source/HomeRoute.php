@@ -322,16 +322,16 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		while($connected && !\SeanMorris\Ids\Http\Http::disconnected())
 		{
-			$now = microtime(true);
+			// $now = microtime(true);
 
-			if($now - $last > 0.1)
-			{
-				$last = $now;
+			// if($now - $last > 0.1)
+			// {
+			// 	$last = $now;
 
-				\SeanMorris\Ids\Log::debug('Heartbeat');
+			// 	\SeanMorris\Ids\Log::debug('Heartbeat');
 
-				yield new \SeanMorris\Ids\Http\Event(['payload' => '']);
-			}
+			// 	yield new \SeanMorris\Ids\Http\Event(['payload' => '']);
+			// }
 
 			set_time_limit(60);
 
