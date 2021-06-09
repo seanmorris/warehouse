@@ -7,7 +7,7 @@ services:
       file: base.yml
       service: idilic
     volumes: ['${OUTROOTDIR}/:/app']
-    depends_on: [database]
+    depends_on: [database, redis]
     environment:
       XDEBUG_CONFIG: ${XDEBUG_CONFIG}
       DHOST_IP: ${DHOST_IP}

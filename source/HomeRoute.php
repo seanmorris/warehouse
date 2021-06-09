@@ -34,7 +34,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			$validSuffix = '.seanmorr.is';
 			$validLength = strlen($validSuffix);
 
-			$refDomain = $_SERVER['HTTP_ORIGIN'];
+			$refDomain = $_SERVER['HTTP_ORIGIN'] ?? NULL;
 
 			$checkSuffix = substr($refDomain, -$validLength);
 
@@ -111,7 +111,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		if($channel[0] !== '-' && $records)
 		{
-			$this->redis->expire($streamName, 60*60);
+			$this->redis->expire($streamName, 60*60*24);
 			$this->redis->xTrim($streamName, 1000);
 
 			$this->redis->xAdd('systemStream_recently-published', '*', [
@@ -256,5 +256,55 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$record->body  = 'wow.';
 
 		$record->save();
+	}
+
+	public function irc($router)
+	{
+		$buffer = [];
+
+		$defaults = [
+			'moo.slashnet.org'
+			, 6667
+			, '#sycamore-0x29a'
+			, 'php-sycamore-' . uniqid()
+			, gethostname()
+			, gethostname()
+			, 'Real McPerson'
+		];
+
+		[$server, $port, $channel, $nick] = $router->path()->consumeNodes() + $defaults;
+
+		$irc = \SeanMorris\Warehouse\Irc\Connection::get($server, $port);
+
+		$irc->addEventListener('receive', function($event, $frame) use(&$buffer) {
+			array_push($buffer, $frame->line);
+		});
+
+		$irc->addEventListener('PING', function($event, $frame) use($irc) {
+			$irc->send('PONG ' . implode(' ', $frame->params));
+		});
+
+		$irc->addEventListener(
+			'001'
+			, function($event, $frame) use($irc, $channel) { $irc->send('JOIN ' . $channel); }
+			, ['once' => true]
+		);
+
+		$irc->connect();
+
+		$irc->send('NICK ' . $nick);
+		$irc->send('USER ' . $nick . ' hostname servername realname');
+
+		while(true)
+		{
+			set_time_limit(30);
+
+			$irc->check();
+
+			while($buffer)
+			{
+				yield array_shift($buffer);
+			}
+		}
 	}
 }
