@@ -328,7 +328,9 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$last = $now;
 
-				yield str_pad('heartbeat', 4096) . "\r\n";
+				\SeanMorris\Ids\Log::debug('Heartbeat');
+
+				yield new \SeanMorris\Ids\Http\Event(['payload' => '']);
 			}
 
 			set_time_limit(30);
