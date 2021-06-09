@@ -269,7 +269,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$buffer = [];
 
 		$defaults = [
-			'moo.slashnet.org'
+			'concrete.slashnet.org'
 			, 6667
 			, '#sycamore-0x29a'
 			, 'php-sycamore-' . uniqid()
