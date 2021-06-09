@@ -324,7 +324,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		{
 			$now = microtime(true);
 
-			if($now - $last > 5)
+			if($now - $last > 1)
 			{
 				$last = $now;
 
