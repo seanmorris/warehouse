@@ -271,7 +271,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$defaults = [
 			'concrete.slashnet.org'
 			, 6667
-			, '#sycamore-0x29a'
+			, 'sycamore-0x29a'
 			, 'php-sycamore-' . uniqid()
 			, gethostname()
 			, gethostname()
@@ -298,7 +298,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$irc->addEventListener(
 			'001'
-			, function($event, $frame) use($irc, $channel) { $irc->send('JOIN ' . $channel); }
+			, function($event, $frame) use($irc, $channel) { $irc->send('JOIN #' . $channel); }
 			, ['once' => true]
 		);
 
