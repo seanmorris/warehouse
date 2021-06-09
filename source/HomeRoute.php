@@ -296,7 +296,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		});
 
 		$irc->addEventListener('receive', function($event, $frame) use(&$buffer) {
-			array_push($buffer, $frame->line);
+			array_push($buffer, $frame);
 		});
 
 		$irc->addEventListener('send', function($event, $string) use(&$buffer) {
@@ -337,9 +337,13 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 			while($buffer)
 			{
-				$line = trim(array_shift($buffer));
+				$frame = array_shift($buffer);
 
-				yield str_pad($line, 4096) . "\r\n";
+				yield new \SeanMorris\Ids\Http\Event([
+					'payload' => json_encode($frame)
+					, 'user'  => $message['user']
+					, 'sess'  => $message['sess']
+				], $id);
 			}
 		}
 
