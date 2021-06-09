@@ -307,15 +307,28 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$irc->send('NICK ' . $nick);
 		$irc->send('USER ' . $nick . ' hostname servername realname');
 
+		$last = $start = microtime(true);
+
 		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
+			$now = microtime(true);
+
+			if($now - $last > 5)
+			{
+				$last = $now;
+
+				yield "\n";
+			}
+
 			set_time_limit(30);
 
 			$irc->check();
 
 			while($buffer)
 			{
-				yield array_shift($buffer);
+				$line = trim(array_shift($buffer));
+
+				yield str_pad($line, 4096) . "\r\n";
 			}
 		}
 
