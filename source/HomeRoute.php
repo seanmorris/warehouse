@@ -304,8 +304,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$irc->connect();
 
-		$irc->send('NICK %s', $nick);
-		$irc->send('USER %s %s %s %s', $nick, $hostname, $servername, $realname);
+		$irc->send(sprintf('NICK %s', $nick));
+		$irc->send(sprintf('USER %s %s %s %s', $nick, $hostname, $servername, $realname));
 
 		$last = $start = microtime(true);
 
