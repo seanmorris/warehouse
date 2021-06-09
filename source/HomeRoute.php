@@ -328,7 +328,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$last = $now;
 
-				yield str_pad('', 4096) . "\r\n";
+				yield str_pad('heartbeat', 4096) . "\r\n";
 			}
 
 			set_time_limit(30);
