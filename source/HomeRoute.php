@@ -268,19 +268,17 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$buffer = [];
 
-		// $defaults = [
-		// 	'moo.slashnet.org'
-		// 	, 6667
-		// 	, '#sycamore-0x29a'
-		// 	, 'php-sycamore-' . uniqid()
-		// 	, gethostname()
-		// 	, gethostname()
-		// 	, 'Real McPerson'
-		// ];
+		$defaults = [
+			'moo.slashnet.org'
+			, 6667
+			, '#sycamore-0x29a'
+			, 'php-sycamore-' . uniqid()
+			, gethostname()
+			, gethostname()
+			, 'Real McPerson'
+		];
 
-		// [$server, $port, $channel, $nick] = $router->path()->consumeNodes() + $defaults;
-
-		[$channel] = $router->path()->consumeNodes() + ['php-sycamore-' . uniqid()];
+		[$server, $port, $channel, $nick] = $defaults;
 
 		$irc = \SeanMorris\Warehouse\Irc\Connection::get($server, $port);
 
