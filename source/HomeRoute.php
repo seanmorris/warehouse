@@ -285,7 +285,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$irc = \SeanMorris\Warehouse\Irc\Connection::get($server, $port);
 
 		$irc->addEventListener('receive', function($event, $frame) use(&$buffer) {
-			array_push($buffer, $frame->line);
+			array_push($buffer, json_encode($frame));
 		});
 
 		$irc->addEventListener('send', function($event, $string) use(&$buffer) {
