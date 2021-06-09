@@ -260,6 +260,12 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 	public function irc($router)
 	{
+		header('HTTP/1.1 200 OK');
+		header('Transfer-Encoding: chunked');
+		header('Content-Type: text/event-stream');
+		header('Cache-Control: no-cache');
+		header('Connection: keep-alive');
+
 		$buffer = [];
 
 		$defaults = [
@@ -295,7 +301,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		$irc->send('NICK ' . $nick);
 		$irc->send('USER ' . $nick . ' hostname servername realname');
 
-		while(true)
+		while(!\SeanMorris\Ids\Http\Http::disconnected())
 		{
 			set_time_limit(30);
 
@@ -306,5 +312,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				yield array_shift($buffer);
 			}
 		}
+
+		$irc->disconnect();
 	}
 }
