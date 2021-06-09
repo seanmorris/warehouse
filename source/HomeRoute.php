@@ -280,6 +280,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		[$server, $port, $channel, $nick] = $defaults;
 
+		[$channel] = $router->path()->consumeNodes() + ['php-sycamore-' . uniqid()];
+
 		$irc = \SeanMorris\Warehouse\Irc\Connection::get($server, $port);
 
 		$irc->addEventListener('receive', function($event, $frame) use(&$buffer) {
