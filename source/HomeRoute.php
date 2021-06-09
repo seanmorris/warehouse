@@ -324,11 +324,11 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		{
 			$now = microtime(true);
 
-			if($now - $last > 5)
+			if($now - $last > 30)
 			{
 				$last = $now;
 
-				yield "\n";
+				yield str_pad('', 4096) . "\r\n";
 			}
 
 			set_time_limit(30);
