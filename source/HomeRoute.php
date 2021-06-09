@@ -288,6 +288,10 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			array_push($buffer, $frame->line);
 		});
 
+		$irc->addEventListener('send', function($event, $string) use(&$buffer) {
+			array_push($buffer, $string);
+		});
+
 		$irc->addEventListener('PING', function($event, $frame) use($irc) {
 			$irc->send('PONG ' . implode(' ', $frame->params));
 		});
