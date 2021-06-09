@@ -333,7 +333,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 				yield new \SeanMorris\Ids\Http\Event(['payload' => '']);
 			}
 
-			set_time_limit(30);
+			set_time_limit(60);
 
 			$irc->check();
 
