@@ -278,7 +278,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			, 'Real McPerson'
 		];
 
-		[$server, $port, $channel, $nick] = $defaults;
+		[$server, $port, $channel, $nick, $hostname, $servername, $realname] = $defaults;
 
 		[$channel] = $router->path()->consumeNodes() + [$channel];
 
