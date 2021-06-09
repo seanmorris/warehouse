@@ -339,11 +339,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 			{
 				$frame = array_shift($buffer);
 
-				yield new \SeanMorris\Ids\Http\Event([
-					'payload' => json_encode($frame)
-					, 'user'  => $message['user']
-					, 'sess'  => $message['sess']
-				], $id);
+				yield new \SeanMorris\Ids\Http\Event(['payload' => json_encode($frame)]);
 			}
 		}
 
