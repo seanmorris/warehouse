@@ -268,6 +268,8 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$buffer = [];
 
+		$connected = true;
+
 		$defaults = [
 			'concrete.slashnet.org'
 			, 6667
@@ -283,6 +285,15 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 		[$channel] = $router->path()->consumeNodes() + [$channel];
 
 		$irc = \SeanMorris\Warehouse\Irc\Connection::get($server, $port);
+
+		$irc->addEventListener('connect', function($event, $frame) use($irc) {
+			yield "Connected!\n";
+		});
+
+		$irc->addEventListener('disconnect', function($event, $frame) use($irc, &$connected) {
+			yield "Disconnected!\n";
+			$connected = false;
+		});
 
 		$irc->addEventListener('receive', function($event, $frame) use(&$buffer) {
 			array_push($buffer, $frame->line);
@@ -309,7 +320,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 		$last = $start = microtime(true);
 
-		while(!\SeanMorris\Ids\Http\Http::disconnected())
+		while($connected && !\SeanMorris\Ids\Http\Http::disconnected())
 		{
 			$now = microtime(true);
 
