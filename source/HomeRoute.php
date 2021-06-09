@@ -260,7 +260,7 @@ class HomeRoute implements \SeanMorris\Ids\Routable
 
 	public function irc($router)
 	{
-		header('HTTP/1.1 200 OK');
+		header('HTTP/2 200 OK');
 		header('Transfer-Encoding: chunked');
 		header('Content-Type: text/event-stream');
 		header('Cache-Control: no-cache');
